@@ -1,0 +1,13 @@
+{
+    "name": "permafrost/wordpress-api",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Permafrost Development",
+            "email": "permafrost@permafrost.fakedev"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}

@@ -1,0 +1,19 @@
+# WordPress core
+/wp-admin/
+/wp-includes/
+/*.php
+
+# Secrets
+wp-config.php
+.env
+
+# Uploads
+/wp-content/uploads/
+
+# Composer
+/vendor/
+
+# OS / IDE
+.DS_Store
+.idea
+.vscode
