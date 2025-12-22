@@ -47,6 +47,37 @@ function register_all_routes() {
         'callback' => [$accountService, 'profile'],
         'permission_callback' => '__return_true'
     ]);
+
+    
+    // ==================== WP-editor rutter ====================
+
+    /**
+     * Meny-rutt
+     */
+    register_rest_route('wp-editor/v1', '/menus/(?P<location>[a-zA-Z0-9_-]+)', [
+        'methods' => 'GET',
+        'callback' => fn($data): array|WP_Error => get_menu_by_location($data),
+        'permission_callback' => '__return_true'
+    ]);
+
+    /**
+     * Site Config-rutt
+     */
+    register_rest_route('wp-editor/v1', '/site-config', [
+        'methods' => 'GET',
+        'callback' => fn(): array|WP_ERROR => get_site_config(),
+        'permission_callback' => '__return_true'
+    ]);
+
+    /**
+     * Sections-rutt
+     */
+    register_rest_route('wp-editor/v1', '/sections/(?P<page_id>\d+)', [
+        'methods' => 'GET',
+        'callback' => fn($data): array|WP_Error => get_sections($data),
+        'permission_callback' => '__return_true'
+    ]);
+
     
     // Övriga rutter
     register_rest_route('permafrost/v1', '/data', [
