@@ -1,21 +1,5 @@
 <?php
 
-/**
- * Registrerar den anpassade posttypen "site_config".
- */
-add_action('init', function () {
-    register_post_type('site_config', [
-        'label' => 'Site Configuration',
-        'public' => false,
-        'show_ui' => true,
-        'show_in_menu' => true,
-        'menu_icon' => 'dashicons-admin-generic',
-        'show-in-rest' => true,
-        'map_meta_cap' => true,
-        'supports' => ['title'],
-        'rest_base' => 'site-config'
-    ]);
-});
 
 /**
  * Hämtar site configuration data.
@@ -34,8 +18,21 @@ function get_site_config(): array | WP_ERROR {
     }
 
     $site_config = [
-        'layout_settings' => get_fields($posts[0]->ID),
-        'other_settings' => [] // Framtida inställningar...
+        'layout_settings' => [
+            'sidebar_position' => get_field('sidebar_position', $posts[0]->ID)
+        ],
+        'color_settings' => [
+            'primary_color' => get_field('primary_color', $posts[0]->ID),
+            'secondary_color' => get_field('secondary_color', $posts[0]->ID),
+            'primary_text_color' => get_field('primary_text_color', $posts[0]->ID),
+            'secondary_text_color' => get_field('secondary_text_color', $posts[0]->ID),
+            'button_color' => get_field('button_color', $posts[0]->ID),
+            'button_text_color' => get_field('button_text_color', $posts[0]->ID),
+            'link_color' => get_field('link_color', $posts[0]->ID)
+        ],
+        'seo_settings' => [
+            'favicon' => get_field('favicon', $posts[0]->ID)
+        ]
     ];
 
     return $site_config ?? new WP_Error('no_site_config_data', 'No Site Configuration data found.', ['status' => 404]);

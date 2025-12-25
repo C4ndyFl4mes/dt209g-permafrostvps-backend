@@ -54,10 +54,16 @@ function register_all_routes() {
     /**
      * Meny-rutt
      */
-    register_rest_route('wp-editor/v1', '/menus/(?P<location>[a-zA-Z0-9_-]+)', [
+    register_rest_route('wp-editor/v1', '/menus', [
         'methods' => 'GET',
         'callback' => fn($data): array|WP_Error => get_menu_by_location($data),
-        'permission_callback' => '__return_true'
+        'permission_callback' => '__return_true',
+        'args' => [
+            'location' => [
+                'required' => true,
+                'type' => 'string'
+            ]
+        ]
     ]);
 
     /**
@@ -72,12 +78,18 @@ function register_all_routes() {
     /**
      * Sections-rutt
      */
-    register_rest_route('wp-editor/v1', '/sections/(?P<page_id>\d+)', [
+    register_rest_route('wp-editor/v1', '/sections', [
         'methods' => 'GET',
         'callback' => fn($data): array|WP_Error => get_sections($data),
-        'permission_callback' => '__return_true'
+        'permission_callback' => '__return_true',
+        'args' => [
+            'slug' => [
+                'required' => true,
+                'type' => 'string'
+            ]
+        ]
     ]);
-
+    
     
     // Övriga rutter
     register_rest_route('permafrost/v1', '/data', [
