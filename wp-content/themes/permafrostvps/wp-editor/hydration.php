@@ -57,21 +57,20 @@ function tiercards_hydrator($acf, $page_id)
  * @param array $acf - befintliga ACF-fält för sektionen.
  * @return array - uppdaterade ACF-fält med organiserat textinnehåll.
  */
-function text_hydrator($acf, $page_id) {
-   $acf['content'] = [
-        'intro' => get_field('intro', $page_id),
-        'body'  => get_field('body', $page_id),
-        'outro' => get_field('outro', $page_id),
-    ];
+function text_hydrator(array $acf, int $pageId): array
+{
+    $key = $acf['text_key'] ?? null;
 
-    // Optional: apply formatting
-    foreach ($acf['content'] as $key => $value) {
-        if ($value) {
-            $acf['content'][$key] = apply_filters('the_content', $value);
-        }
+    if (!$key) {
+        return $acf;
     }
 
-    return $acf;
+    $content = get_field($key, $pageId);
+
+    return [
+        'key'     => $key,
+        'content' => apply_filters('the_content', $content),
+    ];
 }
 
 /**
