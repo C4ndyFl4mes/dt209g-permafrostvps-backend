@@ -19,7 +19,8 @@ function get_site_config(): array | WP_ERROR {
 
     $site_config = [
         'layout_settings' => [
-            'sidebar_position' => get_field('sidebar_position', $posts[0]->ID)
+            'sidebar_position' => get_field('sidebar_position', $posts[0]->ID),
+            'banner_image' => get_field('banner_image', $posts[0]->ID)
         ],
         'color_settings' => [
             'primary_color' => get_field('primary_color', $posts[0]->ID),
