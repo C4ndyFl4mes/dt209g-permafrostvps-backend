@@ -46,7 +46,8 @@ function get_menu_by_location($data): array | WP_Error {
             'id' => $item->ID,
             'title' => $item->title,
             'slug' => $slug,
-            'page_id' => ($item->object === 'page' || $item->object === 'post') ? (int) $item->object_id : null
+            'page_id' => ($item->object === 'page' || $item->object === 'post') ? (int) $item->object_id : null,
+            'parent_id' => (int) $item->menu_item_parent
         ];
     }, $menu_items);
 }
