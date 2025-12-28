@@ -32,7 +32,14 @@ function get_site_config(): array | WP_ERROR {
             'link_color' => get_field('link_color', $posts[0]->ID)
         ],
         'seo_settings' => [
-            'favicon' => get_field('favicon', $posts[0]->ID)
+            'logotype' => [
+                'url' => get_field('logotype', $posts[0]->ID)['url'] ?? null,
+                'alt' => get_field('logotype', $posts[0]->ID)['alt'] ?? null
+            ],
+            'favicon' => [
+                'url' => get_field('favicon', $posts[0]->ID)['url'] ?? null,
+                'alt' => get_field('favicon', $posts[0]->ID)['alt'] ?? null
+            ]
         ]
     ];
 
