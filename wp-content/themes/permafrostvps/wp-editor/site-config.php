@@ -20,7 +20,19 @@ function get_site_config(): array | WP_ERROR {
     $site_config = [
         'layout_settings' => [
             'sidebar_position' => get_field('sidebar_position', $posts[0]->ID),
-            'banner_image' => get_field('banner_image', $posts[0]->ID)
+            'banner_image' => [
+                'alt' => get_field('banner_image', $posts[0]->ID)['alt'] ?? '',
+                'large' => [
+                    'url' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-large'] ?? '',
+                    'width' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-large-width'] ?? 0,
+                    'height' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-large-height'] ?? 0
+                ],
+                'small' => [
+                    'url' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-small'] ?? '',
+                    'width' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-small-width'] ?? 0,
+                    'height' => get_field('banner_image', $posts[0]->ID)['sizes']['banner-small-height'] ?? 0
+                ]   
+            ]
         ],
         'color_settings' => [
             'primary_color' => get_field('primary_color', $posts[0]->ID),

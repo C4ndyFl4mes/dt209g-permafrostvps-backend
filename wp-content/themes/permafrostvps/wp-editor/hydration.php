@@ -10,16 +10,7 @@
  */
 function banner_hydrator($acf, $page_id) {
     $site_config = get_site_config();
-    $banner_unfiltered = $site_config['layout_settings']['banner_image'] ?? [];
-    $banner = [
-        'title' => $banner_unfiltered['title'] ?? '',
-        'alt' => $banner_unfiltered['alt'] ?? '',
-        'caption' => $banner_unfiltered['caption'] ?? '',
-        'sizes' => [
-            'small' => $banner_unfiltered['sizes']['banner-small'] ?? '',
-            'large' => $banner_unfiltered['sizes']['banner-large'] ?? '',
-        ]
-        ];
+    $banner = $site_config['layout_settings']['banner_image'] ?? [];
     return array_merge($acf, [
         'banner_image' => $banner,
     ]);
