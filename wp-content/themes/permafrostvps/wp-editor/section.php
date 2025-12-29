@@ -10,22 +10,25 @@ require_once get_template_directory() . '/wp-editor/hydration.php';
  */
 function organize_tiers($tierData): array
 {
-    $organized = [];
+    $temp = [];
 
     foreach ($tierData as $key => $value) {
-        // Gör om från t1_name till ['t1']['name']. 
-        if (preg_match('/^(t\d+)_(.+)$/', $key, $matches)) {
-            $tierNum = $matches[1]; // (t\d+) (tier nummer)
-            $fieldName = $matches[2]; // (.+) (fältnamn)
+        // Matcher nycklar som följer mönstret "t{nummer}_{fält}".
+        if (preg_match('/^(t(\d+))_(.+)$/', $key, $matches)) {
+            $tierIndex = (int)$matches[2] - 1; // (t\d+) (tier nummer, 1-baserat till 0-baserat)
+            $fieldName = $matches[3]; // (.+) (fältnamn)
 
-            if (!isset($organized[$tierNum])) {
-                $organized[$tierNum] = [];
+            if (!isset($temp[$tierIndex])) {
+                $temp[$tierIndex] = [];
             }
 
-            $organized[$tierNum][$fieldName] = $value;
+            $temp[$tierIndex][$fieldName] = $value;
         }
     }
 
+    // Sorterar tiers baserat på deras index och återställer array-nycklarna.
+    ksort($temp);
+    $organized = array_values($temp);
     return $organized;
 }
 
